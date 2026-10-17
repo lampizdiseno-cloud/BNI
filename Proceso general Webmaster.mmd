@@ -1,0 +1,27 @@
+flowchart TD 
+  Inicio([Inicio de proceso]) --> W1[[Cobertura de reunión]]
+  %% Fotos, audios y selfies de reunión
+  W1 --> W2[(Descarga fotográfica)]
+  %%  Creación de copywriting con IA
+  W2 --> W3[[Preparación de material]]
+  W3 --> W4>Entrega de material]
+  W4 --> W5[Compartir galería]
+ %% Diferentes miembros del equipo entregan insumos 
+  W5 --> W6[Recibir nuevos insumos]
+  W6 --> W7[/Descarga de insumos/]
+  W7 --> W8[Preparar presentación]
+  W8 --> W9>Carga de presentación final/]
+  %% Presidente analiza presentación
+  W9 --> W10{Aprobación final}  
+
+  W10 --> | Sí | W11[(Cargar copia)]
+  W10 --> | No | W8
+
+  W11 --> Fin([Fin del proceso]) 
+
+ classDef IA fill: #ff7221, color: #000, stroke: #000
+ classDef equipo fill: #cf2030, color: #fff, stroke: #000
+ classDef brecha fill: #8a8a8a, color: #000, stroke: #000
+ class W3 IA
+ class W6,W10 equipo
+ class Inicio,Fin brecha

@@ -1,0 +1,59 @@
+
+flowchart LR
+    %% Revisión de componentes en Nube antes de proceso
+    Insp[Inspección de componentes]
+    %% Se prepara agenda manualmente con diapositivas específicas
+    Prep[[Preparación de agenda]]
+    %% Diapositivas de responsables del equipo Victoria
+    Diap[(Diapositivas individuales)]
+    %% Referencias de miembros Victoria
+    Ref[(Referencias semanales)]    
+    %% Se revisa si hay videos de miembros para sus presentaciones
+    Vid{¿Hay videos de miembros?}
+    %% Partes de agenda, lista para ensamble
+    VidDesc[(Descarga de videos)]
+    Princ{Agenda semanal}
+    %% Se agregan diapositivas cotidianas del mes
+    Norm[Diapositivas regulares]
+    %% Se agregan diapositivas especiales
+    Esp[Diapositivas de fin de mes]    
+    %% Se carga el ensamble final a la nube
+    Resp[(Respaldo final)]  
+    
+  %% Desarrollo del flujo
+  subgraph Hum[Preparación del usuario]
+   %% se inspecciona que diapositivas de equipo estén en orden
+   Insp--> Prep
+  end    
+   %% Se edita manualmente diapositivas de agenda
+   Prep --> Diap
+   %% Se descargan archivos desde el Drive  
+  subgraph Nube1[Almacén en Drive]
+    Diap --> Ref
+    Ref --> Vid
+  end   
+    Vid -- Si --> VidDesc
+    Vid -- No --> Princ
+   %% Se procesa en disco local
+  subgraph Local[Mesa de ensamble]
+    VidDesc --> Princ
+    Princ -- Regular --> Norm
+    Princ -- Fin de mes --> Esp
+  end   
+  subgraph Nube2[Almacén en Drive]
+    %% Regresa el producto final al drive
+    Norm --> Resp
+    Esp --> Resp
+  end
+
+%% Definición de estilos
+classDef IA fill:#FF7221,stroke:#000,color:#000,stroke-width:2px
+classDef humano fill:#084C61,stroke:#fff,color:#fff,stroke-width:2px
+classDef previo fill:#F5EA76,stroke:#000,color:#000
+classDef maquila fill:#57DE63,stroke:#000,color:#000
+
+%% Asignación de clases
+class Diap,Ref,Vid,VidDesc,Princ,Norm,Esp,Resp IA
+class Insp,Prep humano
+class Hum previo
+class Nube1,Local,Nube2 maquila
